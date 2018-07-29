@@ -58,10 +58,12 @@ public class ListActivity extends AppCompatActivity implements ListView.OnItemCl
                 JSONObject jo = result.getJSONObject(i);
                 String id = jo.getString(App.TAG_ID);
                 String name = jo.getString(App.TAG_NAME);
+               // String reminder = jo.getString(App.TAG_REMINDER);
 
                 HashMap<String,String> tasks = new HashMap<>();
                 tasks.put(App.TAG_ID,id);
                 tasks.put(App.TAG_NAME,name);
+                //tasks.put(App.TAG_REMINDER,reminder);
                 list.add(tasks);
             }
 
@@ -98,11 +100,15 @@ public class ListActivity extends AppCompatActivity implements ListView.OnItemCl
             @Override
             protected String doInBackground(Void... params) {
                 RequestHandler rh = new RequestHandler();
+                System.out.println("*************** URL ***************" + App.URL_GET_ALL);
                 String s = rh.sendGetRequest(App.URL_GET_ALL);
+
+                System.out.println("******printing string after get URL 1*******" + s);
                 return s;
             }
         }
         GetJSON gj = new GetJSON();
+       // System.out.println(*************+ gj );
         gj.execute();
     }
 

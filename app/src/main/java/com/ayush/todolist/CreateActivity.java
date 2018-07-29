@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     //Defining views
     private EditText editTextName;
     private EditText editTextDesription;
+    private CheckBox fReminder;
 
     private Button buttonAdd;
     private Button buttonView;
@@ -29,6 +31,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         //Initializing views
         editTextName = (EditText) findViewById(R.id.txtName);
         editTextDesription = (EditText) findViewById(R.id.txtDescription);
+        fReminder = (CheckBox) findViewById(R.id.flagReminder);
 
         buttonAdd = (Button) findViewById(R.id.btnCreate);
         buttonView = (Button) findViewById(R.id.btnBack);
@@ -44,6 +47,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
 
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDesription.getText().toString().trim();
+        final Boolean reminder = fReminder.isSelected();
 
         class AddTask extends AsyncTask<Void,Void,String> {
 
@@ -67,6 +71,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
                 HashMap<String,String> params = new HashMap<>();
                 params.put(App.KEY_NAME,name);
                 params.put(App.KEY_DESCRIPTION,description);
+                params.put(App.KEY_REMINDER,reminder.toString());
 
                 RequestHandler rh = new RequestHandler();
                 String res = rh.sendPostRequest(App.URL_CREATE, params);
